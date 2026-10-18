@@ -7,9 +7,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Download, Printer, Mail, Package, MapPin, User, Phone, HelpCircle } from "lucide-react"
-import QRCode from "qrcode.react"
+import { QRCodeSVG } from "qrcode.react"
 import { v4 as uuidv4 } from "uuid"
-import html2pdf from "html2pdf.js"
 
 interface Product {
   id: string
@@ -66,6 +65,7 @@ export default function Invoice({ data, showDownloadButton = true, className = "
     setIsGeneratingPDF(true)
 
     try {
+      const html2pdf = (await import("html2pdf.js")).default
       const element = invoiceRef.current
       const opt = {
         margin: 0.5,
@@ -179,7 +179,7 @@ ${data.storeName} Team
 
                   <div className="text-right">
                     <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
-                      <QRCode value={orderId} size={80} bgColor="transparent" fgColor="#ffffff" className="mx-auto" />
+                      <QRCodeSVG value={orderId} size={80} bgColor="transparent" fgColor="#ffffff" className="mx-auto" />
                     </div>
                   </div>
                 </div>
